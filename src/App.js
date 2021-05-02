@@ -1,38 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Text, View } from "react-native";
+import { ApolloProvider, ApolloClient } from "@apollo/client";
 
-import Home from "./screens/Home";
+import { InMemoryCache } from "@apollo/client/cache";
 
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
+import AppRoutes from "./AppRoutes";
 
-const Stack = createStackNavigator();
+const client = new ApolloClient({
+  uri: "https://beta.pokeapi.co/graphql/v1beta",
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "Pokedex",
-          }}
-        />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <AppRoutes />
+    </ApolloProvider>
   );
 };
 

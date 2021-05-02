@@ -22,7 +22,11 @@ function Home({ navigation }) {
   }, []);
 
   if (loading)
-    return <ActivityIndicator color="#794BC4" size={60} style={styles.item} />;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator color="#794BC4" size={60} style={styles.item} />;
+      </View>
+    );
 
   return (
     <View style={styles.container}>
